@@ -30,7 +30,7 @@ echo "--------------------------"
 nginx &
 
 # 确保必要的命令存在
-command -v /usr/local/bin/sing-box >/dev/null 2>&1 || { echo "错误：未找到 sing-box。"; exit 1; }
+command -v /usr/local/bin/sing >/dev/null 2>&1 || { echo "错误：未找到 sing。"; exit 1; }
 command -v /usr/local/bin/cloudflared >/dev/null 2>&1 || { echo "错误：未找到 cloudflared。"; exit 1; }
 command -v base64 >/dev/null 2>&1 || { echo "错误：未找到 base64 (是否缺少 coreutils？)。"; exit 1; }
 
@@ -41,7 +41,7 @@ if [ -n "$UUID" ]; then
     #echo "--------------------------------------------------"
     #echo "检测到用户提供的 UUID: $EFFECTIVE_UUID"
 else
-    EFFECTIVE_UUID=$(/usr/local/bin/sing-box generate uuid)
+    EFFECTIVE_UUID=$(/usr/local/bin/sing generate uuid)
     echo "--------------------------------------------------"
     echo "未提供 UUID，已自动生成: $EFFECTIVE_UUID"
 fi
@@ -173,7 +173,7 @@ cat > seven.json <<EOF
 EOF
 #echo "seven.json 已创建 (端口: 2777)。"
 
-nohup /usr/local/bin/sing-box run -c seven.json > /dev/null 2>&1 &
+nohup /usr/local/bin/sing run -c seven.json > /dev/null 2>&1 &
 sleep 2
 #ps | grep "sing-box" | grep -v 'grep'
 #echo "sing-box 已启动。"
